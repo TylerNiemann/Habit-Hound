@@ -1,31 +1,41 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, TextInput,  Button, Alert} from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput,  Button, Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import { createHabitTable } from '../data/database';
 
 export default function TextInputExample(): JSX.Element {
-    const [text, onChangeText] = React.useState('Useless Text');
-    const [number, onChangeNumber] = React.useState('');
-  
-    return (
-      <SafeAreaView style={styles.container} >
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
-          placeholder="useless placeholder"
-          keyboardType="numeric"
-        />
-        <Button
-        title="Press me"
-        onPress={() => Alert.alert('Simple Button pressed')}
-      />
-      </SafeAreaView>
-    );
+  const [habitName, setHabitName] = React.useState('');
+  const [timesPerWeek, setTimesPerWeek] = React.useState('');
+
+  const handlePress = () => {
+    if (habitName && timesPerWeek) {
+      createHabitTable(habitName, Number(timesPerWeek));
+    } else {
+      Alert.alert('Please enter a habit name and times per week.');
+    }
   };
+
+
+  return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <SafeAreaView style={styles.container}>
+      <TextInput
+        style={styles.input}
+        onChangeText={setHabitName}
+        value={habitName}
+        placeholder="Habit Name"
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={setTimesPerWeek}
+        value={timesPerWeek}
+        placeholder="Times Per Week"
+        keyboardType="numeric"
+      />
+      <Button title="Create Habit" onPress={handlePress} />
+    </SafeAreaView>
+    </TouchableWithoutFeedback>
+  );
+};
 
   const styles = StyleSheet.create({
     container: {
