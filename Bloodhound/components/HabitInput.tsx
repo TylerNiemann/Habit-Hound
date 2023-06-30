@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, TextInput,  Button, Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { createHabitTable } from '../data/database';
 
-export default function TextInputExample(): JSX.Element {
+export default function HabitInput(): JSX.Element {
   const [habitName, setHabitName] = React.useState('');
   const [timesPerWeek, setTimesPerWeek] = React.useState('');
 
@@ -31,7 +31,13 @@ export default function TextInputExample(): JSX.Element {
         placeholder="Times Per Week"
         keyboardType="numeric"
       />
-      <Button title="Create Habit" onPress={handlePress} />
+      <Button 
+          title="Create Habit" 
+          onPress={() => {
+          Keyboard.dismiss();
+          handlePress();
+        }}
+      />
     </SafeAreaView>
     </TouchableWithoutFeedback>
   );
@@ -40,9 +46,8 @@ export default function TextInputExample(): JSX.Element {
   const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-    justifyContent: 'center',
+        marginTop: -200,
+        width: 300,
       },
     input: {
       height: 40,
@@ -50,5 +55,6 @@ export default function TextInputExample(): JSX.Element {
       borderWidth: 1,
       padding: 10,
     },
+   
   });
   
