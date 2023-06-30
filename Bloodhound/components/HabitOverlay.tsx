@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback, Button } from 'react-native';
+import { useState } from 'react';
 import HabitInput from './HabitInput';
 
 type HabitOverlayProps = {
@@ -17,9 +18,21 @@ const HabitOverlay: React.FC<HabitOverlayProps> = ({
   handleClose,
   habitData,
 }) => {
-    const handleOverlayPress = () => {
-        handleClose();
-      };
+  const [habitModalVisible, setHabitModalVisible] = useState(false);
+
+  const handleOverlayPress = () => {
+      handleClose();
+      setHabitModalVisible(false);
+    };
+
+  const handleHabitModalPress = () => {
+    setHabitModalVisible(true);
+  };
+  
+  const handleHabitModalClose = () => {
+    setHabitModalVisible(false);
+  };
+  
 
   return (
     <Modal visible={modalVisible} transparent={true} animationType="fade">
@@ -34,7 +47,11 @@ const HabitOverlay: React.FC<HabitOverlayProps> = ({
             ))}
           </View>
         </TouchableWithoutFeedback>
-        <HabitInput />
+        <Button title="Open Overlay" onPress={handleHabitModalPress} />
+        <HabitInput
+          habitModalVisible={habitModalVisible}
+          handleHabitModalClose={handleHabitModalClose}
+         />
       </View>
     </TouchableWithoutFeedback>
   </Modal>

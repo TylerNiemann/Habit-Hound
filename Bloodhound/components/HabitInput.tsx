@@ -1,12 +1,23 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, TextInput,  Button, Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput,  Button, Alert, TouchableWithoutFeedback, Keyboard, Modal} from 'react-native';
 import { createHabitTable } from '../data/database';
 
-export default function HabitInput(): JSX.Element {
+
+type HabitInputProps = {
+  habitModalVisible: boolean;
+  handleHabitModalClose: () => void;
+};
+
+
+const HabitInput: React.FC<HabitInputProps> = ({
+  habitModalVisible,
+  handleHabitModalClose,
+}) => {
   const [habitName, setHabitName] = React.useState('');
   const [timesPerWeek, setTimesPerWeek] = React.useState('');
 
   const handlePress = () => {
+    handleHabitModalClose()
     if (habitName && timesPerWeek) {
       createHabitTable(habitName, Number(timesPerWeek));
     } else {
@@ -16,7 +27,14 @@ export default function HabitInput(): JSX.Element {
 
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <Modal visible={habitModalVisible} transparent={true} animationType="fade">
+    <TouchableWithoutFeedback
+     onPress={() => {
+      Keyboard.dismiss;
+      handleHabitModalClose();
+    }} 
+     accessible={false}
+     >
     <SafeAreaView style={styles.container}>
       <TextInput
         style={styles.input}
@@ -40,6 +58,7 @@ export default function HabitInput(): JSX.Element {
       />
     </SafeAreaView>
     </TouchableWithoutFeedback>
+    </Modal>
   );
 };
 
@@ -48,6 +67,8 @@ export default function HabitInput(): JSX.Element {
         flex: 1,
         marginTop: -200,
         width: 300,
+        alignItems: 'center',
+        justifyContent: 'center',
       },
     input: {
       height: 40,
@@ -58,3 +79,4 @@ export default function HabitInput(): JSX.Element {
    
   });
   
+export default HabitInput
