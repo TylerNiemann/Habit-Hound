@@ -41,7 +41,8 @@ export function createDailyTable(habit_id: number): void {
       `
       CREATE TABLE IF NOT EXISTS Daily (
         completed_date DATETIME,
-        habit_reference INTEGER REFERENCES Habit(habit_id)
+        habit_reference INTEGER,
+        FOREIGN KEY (habit_reference) REFERENCES Habit(habit_id) ON DELETE CASCADE
       );
       `,
       [],
