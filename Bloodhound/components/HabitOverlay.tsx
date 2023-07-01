@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback, Button } from 'react-native';
 import { useState } from 'react';
 import HabitInput from './HabitInput';
+import MyCheckbox from './Checkbox';
 
 type HabitOverlayProps = {
   modalVisible: boolean;
@@ -19,7 +20,7 @@ const HabitOverlay: React.FC<HabitOverlayProps> = ({
   habitData,
 }) => {
   const [habitModalVisible, setHabitModalVisible] = useState(false);
-
+  
   const handleOverlayPress = () => {
       handleClose();
       setHabitModalVisible(false);
@@ -43,6 +44,7 @@ const HabitOverlay: React.FC<HabitOverlayProps> = ({
             {habitData.map((habit) => (
               <Text key={habit.habit_id}>
                 {habit.name} {habit.times_per_week}
+                <MyCheckbox habit_id={habit.habit_id} />
               </Text>
             ))}
           </View>

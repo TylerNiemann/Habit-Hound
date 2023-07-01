@@ -2,13 +2,16 @@ import * as SQLite from 'expo-sqlite';
 
 export const db = SQLite.openDatabase('habits.db');
 
-db.exec([{ sql: 'PRAGMA foreign_keys = ON;', args: [] }], false, () =>
-  console.log('Foreign keys turned on')
-);
+export function enableForeignKeys() {
+  db.exec([{ sql: 'PRAGMA foreign_keys = ON;', args: [] }], false, () =>
+    console.log('Foreign keys turned on')
+  );
+}
+
+const currentDate = new Date().toISOString();
 
 export function createHabitTable(habitName: string, timesPerWeek: number): void {
-  const currentDate = new Date().toISOString();
-
+  
   db.transaction((tx) => {
     tx.executeSql(
       `
@@ -32,7 +35,6 @@ export function createHabitTable(habitName: string, timesPerWeek: number): void 
  
 
 export function createDailyTable(habit_id: number): void {
-  const currentDate = new Date().toISOString();
 
   db.transaction((tx) => {
     tx.executeSql(
