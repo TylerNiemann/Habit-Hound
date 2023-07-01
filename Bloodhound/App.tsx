@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 import { db, enableForeignKeys} from './data/database';
-import { clearHabitTable } from './data/queries';
+import { clearHabitTable, scheduleDailyTableReset } from './data/queries';
 import HabitOverlay from './components/HabitOverlay';
 
 type HabitData = {
@@ -30,6 +30,7 @@ export default function App(): JSX.Element {
 
   useEffect(() => {
     enableForeignKeys();
+    scheduleDailyTableReset();
   }, [])
 
 
