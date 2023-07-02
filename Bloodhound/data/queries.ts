@@ -1,4 +1,5 @@
 import { db } from './database';
+import { getCurrentWeek } from '../utils/DateUtils';
 
 export function clearHabitTable(): void {
     db.transaction((tx) => {
@@ -28,7 +29,7 @@ export function clearHabitTable(): void {
     });
   }  
 
-export async function checkDailyRow(habit_id: number): Promise<boolean>{
+export const checkDailyRow = (habit_id: number): Promise<boolean> => {
   return new Promise<boolean>((resolve) => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -86,8 +87,7 @@ export const scheduleDailyTableReset = async () => {
 };
 
 export const getCountWithinCurrentWeek = (): Promise<{ count: number; habit_reference: number }[]> => {
-  const currentWeek: string = new Date().toISOString().slice(0, 10);
-
+  const currentWeek = getCurrentWeek();
   return new Promise((resolve) => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -95,7 +95,7 @@ export const getCountWithinCurrentWeek = (): Promise<{ count: number; habit_refe
          FROM AllDates 
          WHERE completed_date >= ? 
          GROUP BY habit_reference`,
-        [currentWeek],
+        [currentWeek[0], currentWeek[1]],
         (_, { rows }) => {
           const result = rows._array;
           resolve(result);

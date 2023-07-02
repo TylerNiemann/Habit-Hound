@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback } from 'react-native';
 import { getCountWithinCurrentWeek, getHabit } from '../data/queries';
+import { getCurrentFullWeek } from '../utils/DateUtils';
 
 type WeeklyOverlayProps = {
   modalVisible: boolean;
@@ -13,15 +14,13 @@ const WeeklyOverlay: React.FC<WeeklyOverlayProps> = ({
   }) => {
     const [weeklyProgressData, setWeeklyProgressData] = useState<{ habit_reference: number; count: number; name: string; times_per_week: number }[]>([]);
 
-  
-  const handleOverlayPress = () => {
+     const handleOverlayPress = () => {
       handleClose();
     };
 
     useEffect(() => {
         const fetchWeeklyProgress = async () => {
             try {
-                console.log('test')
               const weeklyProgress = await getCountWithinCurrentWeek();
               const updatedProgress = await Promise.all(
                 weeklyProgress.map(async (habitEntry) => {
@@ -46,6 +45,12 @@ const WeeklyOverlay: React.FC<WeeklyOverlayProps> = ({
     <Modal visible={modalVisible} transparent={true} animationType="fade">
     <TouchableWithoutFeedback onPress={handleOverlayPress}>
     <View style={styles.overlayContainer}>
+    <Text style={styles.overlayText}>Current Week:</Text>
+      {getCurrentFullWeek().map((date) => (
+    <Text style={styles.overlayText} key={date.toString()}>
+      {date.toDateString()}
+    </Text>
+  ))}
         <TouchableWithoutFeedback>
         <View style={styles.overlayContent}>
         {weeklyProgressData.map((habitEntry) => (
