@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState }   from 'react';
 import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback, Button } from 'react-native';
-import { useState } from 'react';
 import HabitInput from './HabitInput';
 import MyCheckbox from './Checkbox';
 

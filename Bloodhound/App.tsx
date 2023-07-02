@@ -4,6 +4,7 @@ import { StyleSheet, View, Button } from 'react-native';
 import { db, enableForeignKeys} from './data/database';
 import { clearHabitTable, scheduleDailyTableReset } from './data/queries';
 import HabitOverlay from './components/HabitOverlay';
+import WeeklyOverlay from './components/WeeklyOverrlay';
 
 type HabitData = {
   habit_id: number;
@@ -15,17 +16,26 @@ type HabitData = {
 export default function App(): JSX.Element {
   const [habitData, setHabitData] = useState<HabitData[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [weeklyModalVisible, setWeeklyModalVisible] = useState(false);
 
   const deleteAll = () => {
     clearHabitTable();
   };
 
-  const handlePress = () => {
+  const handleModalPress = () => {
     setModalVisible(true);
   };
 
-  const handleClose = () => {
+  const handleWeeklyPress = () => {
+    setWeeklyModalVisible(true);
+  };
+
+  const handleModalClose = () => {
     setModalVisible(false);
+  };
+
+  const handleWeeklyModalClose = () => {
+    setWeeklyModalVisible(false);
   };
 
   useEffect(() => {
@@ -60,11 +70,16 @@ export default function App(): JSX.Element {
     <View style={styles.container}>
       <HabitOverlay
         modalVisible={modalVisible}
-        handleClose={handleClose}
+        handleClose={handleModalClose}
         habitData={habitData}
       />
+      <WeeklyOverlay
+        modalVisible={weeklyModalVisible}
+        handleClose={handleWeeklyModalClose}
+      />
       <View style={styles.buttonContainer}>
-      <Button title="Open Overlay" onPress={handlePress} />
+      <Button title="Open Overlay" onPress={handleModalPress} />
+      <Button title="Open Weekly Overlay" onPress={handleWeeklyPress} />
       <Button title="Delete All Habit" onPress={deleteAll} />
       </View>
       <StatusBar style="auto" />

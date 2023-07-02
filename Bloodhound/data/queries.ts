@@ -85,3 +85,49 @@ export const scheduleDailyTableReset = async () => {
   clearAndReschedule();
 };
 
+export const getCountWithinCurrentWeek = (): Promise<{ count: number; habit_reference: number }[]> => {
+  const currentWeek: string = new Date().toISOString().slice(0, 10);
+
+  return new Promise((resolve) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `SELECT habit_reference, COUNT(*) AS count 
+         FROM AllDates 
+         WHERE completed_date >= ? 
+         GROUP BY habit_reference`,
+        [currentWeek],
+        (_, { rows }) => {
+          const result = rows._array;
+          resolve(result);
+        },
+        (_, error) => {
+          console.log(error);
+          return false;
+        }
+      );
+    });
+  });
+};
+
+export const getHabit = (habitId: number): Promise<{ name: string; times_per_week: number }> => {
+  return new Promise((resolve) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `
+        SELECT name, times_per_week
+        FROM Habit
+        WHERE habit_id = ?;
+        `,
+        [habitId],
+        (_, { rows }) => {
+          const result = rows.item(0);
+          resolve(result);
+        },
+        (_, error) => {
+          console.log(error);
+          return(false);
+        }
+      );
+    });
+  });
+};

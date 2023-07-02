@@ -97,7 +97,7 @@ export function createWeeklyTable(weekly_completed: number, habit_id: number): v
     );
     tx.executeSql(
       `
-      INSERT INTO Weekly (weekly_completed, habit_reference) VALUES (?, ?);
+      INSERT INTO Weekly(completed_date, habit_reference) VALUES (?, ?);
       `,
       [weekly_completed, habit_id],
     );
