@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Pressable, StyleSheet} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { createDailyTable } from '../data/database';
+import { createDailyTable, createAllDatesTable } from '../data/database';
 import { checkDailyRow } from '../data/queries';
 
 type MyCheckboxProps = {    
@@ -25,6 +25,7 @@ type MyCheckboxProps = {
       const toggleCompleted = () => {
         setCompleted(!completed);
         createDailyTable(habit_id);
+        createAllDatesTable(habit_id);
       };
 
 
