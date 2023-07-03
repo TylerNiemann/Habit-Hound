@@ -70,13 +70,17 @@ export const getCompletionDateFromTable = () => {
 export const scheduleDailyTableReset = async () => {
   const clearAndReschedule = async () => {
     const now = new Date();
-    const lastCompletionDate = await getCompletionDateFromTable(); 
+    const lastCompletionDate = await getCompletionDateFromTable();
 
-    if (lastCompletionDate.getDate() < now.getDate()) {
+    if (
+      lastCompletionDate.getFullYear() < now.getFullYear() ||
+      lastCompletionDate.getMonth() < now.getMonth() ||
+      lastCompletionDate.getDate() < now.getDate()
+    ) {
       clearDailyTable();
     }
 
-    // Calculate the time until the next 12:01 am incase app is running when 12:01 hits
+    // Calculate the time until the next 12:01 am in case the app is running when 12:01 hits
     const nextResetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 1, 0);
     const timeUntilReset = nextResetTime.getTime() - now.getTime();
 
@@ -85,6 +89,7 @@ export const scheduleDailyTableReset = async () => {
 
   clearAndReschedule();
 };
+
 
 export const getCountWithinCurrentWeek = (): Promise<{ count: number; habit_reference: number }[]> => {
   const currentWeek = getCurrentWeek();
