@@ -23,16 +23,19 @@
   "dependencies": {
     "@expo/webpack-config": "^18.0.1",
     "@reduxjs/toolkit": "^1.9.5",
+    "date-fns": "^2.30.0",
     "expo": "~48.0.18",
     "expo-sqlite": "~11.1.1",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-svg": "^13.9.0",
     "react-native-touch-through-view": "^1.2.0-beta.1",
     "react-native-web": "~0.18.10",
     "react-redux": "^8.1.1",
-    "redux": "^4.2.1"
+    "redux": "^4.2.1",
+    "victory-native": "^36.6.11"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

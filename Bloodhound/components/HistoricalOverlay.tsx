@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback } from 'react-native';
-import { getCountWithinCurrentMonth, getHabit, getLifetimeCount } from '../data/queries';
+import { getCountWithinCurrentMonth, getHabit, getLifetimeCount} from '../data/queries';
 import { getCurrentMonth } from '../utils/DateUtils';
+import LifetimeCompletionChart from './LifetimeCompletion';
 
 type HistoricalOverlayProps = {
   modalVisible: boolean;
@@ -12,7 +13,12 @@ const HistoricalOverlay: React.FC<HistoricalOverlayProps> = ({
   modalVisible,
   handleClose,
   }) => {
-    const [monthlyProgressData, setMonthlyProgressData] = useState<{ habit_reference: number; count: number; name: string;  lifetime_count: number; }[]>([]);
+    const [monthlyProgressData, setMonthlyProgressData] = useState<{ 
+        habit_reference: number;
+        count: number; name: string;  
+        lifetime_count: number; 
+        times_per_week: number;  
+     }[]>([]);
 
      const handleOverlayPress = () => {
       handleClose();
@@ -29,6 +35,7 @@ const HistoricalOverlay: React.FC<HistoricalOverlayProps> = ({
                   return {
                     ...habitEntry,
                     name: additionalData.name,
+                    times_per_week: additionalData.times_per_week,
                     lifetime_count: lifetimeCount.find((item) => item.habit_reference === habitEntry.habit_reference)?.count || 0,
                   };
                 })
@@ -42,6 +49,9 @@ const HistoricalOverlay: React.FC<HistoricalOverlayProps> = ({
           fetchMonthlyProgress();
 
       }, [modalVisible])
+
+    const lifetimeCompletion = 50;
+    const possibleLifetimeCompletion = 100;
 
   return (
     <Modal visible={modalVisible} transparent={true} animationType="fade">
@@ -65,6 +75,11 @@ const HistoricalOverlay: React.FC<HistoricalOverlayProps> = ({
       ))}
         </View>
         </TouchableWithoutFeedback>
+        <View>
+      <LifetimeCompletionChart
+        lifetimeCompletion={monthlyProgressData}
+      />
+    </View>
     </View>
     </TouchableWithoutFeedback>
   </Modal>
