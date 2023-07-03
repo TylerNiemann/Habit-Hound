@@ -83,23 +83,3 @@ export function createAllDatesTable(habit_id: number): void {
   });
 }
 
-export function createWeeklyTable(weekly_completed: number, habit_id: number): void {
-  db.transaction((tx) => {
-    tx.executeSql(
-      `
-      CREATE TABLE IF NOT EXISTS Weekly(
-        weekly_completed INTEGER,
-        habit_reference INTEGER,
-        FOREIGN KEY (habit_reference) REFERENCES Habit(habit_id) ON DELETE CASCADE
-      );
-      `,
-      [],
-    );
-    tx.executeSql(
-      `
-      INSERT INTO Weekly(completed_date, habit_reference) VALUES (?, ?);
-      `,
-      [weekly_completed, habit_id],
-    );
-  });
-}

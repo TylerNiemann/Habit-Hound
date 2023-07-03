@@ -29,3 +29,14 @@ export const getCurrentWeek = (): string[] => {
   
     return weekDates;
   };
+
+  export const getCurrentMonth = (): string[] => {
+    const currentDate = new Date();
+    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+  
+    const startOfMonth = firstDayOfMonth.toISOString().slice(0, 10);
+    const endOfMonth = lastDayOfMonth.toISOString().slice(0, 10);
+  
+    return [startOfMonth, endOfMonth];
+  };

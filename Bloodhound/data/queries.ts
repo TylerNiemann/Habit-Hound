@@ -1,5 +1,5 @@
 import { db } from './database';
-import { getCurrentWeek } from '../utils/DateUtils';
+import { getCurrentWeek, getCurrentMonth } from '../utils/DateUtils';
 
 export function clearHabitTable(): void {
     db.transaction((tx) => {
@@ -108,6 +108,51 @@ export const getCountWithinCurrentWeek = (): Promise<{ count: number; habit_refe
     });
   });
 };
+
+export const getCountWithinCurrentMonth = (): Promise<{ count: number; habit_reference: number }[]> => {
+  const currentMonth = getCurrentMonth();
+  return new Promise((resolve) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `SELECT habit_reference, COUNT(*) AS count 
+         FROM AllDates 
+         WHERE completed_date >= ? 
+         GROUP BY habit_reference`,
+        [currentMonth[0], currentMonth[1]],
+        (_, { rows }) => {
+          const result = rows._array;
+          resolve(result);
+        },
+        (_, error) => {
+          console.log(error);
+          return false;
+        }
+      );
+    });
+  });
+};
+
+export const getLifetimeCount = (): Promise<{ habit_reference: number; count: number }[]> => {
+  return new Promise((resolve) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `SELECT habit_reference, COUNT(*) AS count 
+         FROM AllDates 
+         GROUP BY habit_reference`,
+        [],
+        (_, { rows }) => {
+          const result = rows._array;
+          resolve(result);
+        },
+        (_, error) => {
+          console.log(error);
+          return false;
+        }
+      );
+    });
+  });
+};
+
 
 export const getHabit = (habitId: number): Promise<{ name: string; times_per_week: number }> => {
   return new Promise((resolve) => {

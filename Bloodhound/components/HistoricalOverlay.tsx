@@ -1,64 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback } from 'react-native';
-import { getCountWithinCurrentWeek, getHabit } from '../data/queries';
-import { getCurrentFullWeek } from '../utils/DateUtils';
+import { getCountWithinCurrentMonth, getHabit, getLifetimeCount } from '../data/queries';
+import { getCurrentMonth } from '../utils/DateUtils';
 
-type WeeklyOverlayProps = {
+type HistoricalOverlayProps = {
   modalVisible: boolean;
   handleClose: () => void;
  };
 
-const WeeklyOverlay: React.FC<WeeklyOverlayProps> = ({
+const HistoricalOverlay: React.FC<HistoricalOverlayProps> = ({
   modalVisible,
   handleClose,
   }) => {
-    const [weeklyProgressData, setWeeklyProgressData] = useState<{ habit_reference: number; count: number; name: string; times_per_week: number }[]>([]);
+    const [monthlyProgressData, setMonthlyProgressData] = useState<{ habit_reference: number; count: number; name: string;  lifetime_count: number; }[]>([]);
 
      const handleOverlayPress = () => {
       handleClose();
     };
 
     useEffect(() => {
-        const fetchWeeklyProgress = async () => {
+        const fetchMonthlyProgress = async () => {
             try {
-              const weeklyProgress = await getCountWithinCurrentWeek();
+              const monthlyProgress = await getCountWithinCurrentMonth();
               const updatedProgress = await Promise.all(
-                weeklyProgress.map(async (habitEntry) => {
+                monthlyProgress.map(async (habitEntry) => {
                   const additionalData = await getHabit(habitEntry.habit_reference);
+                  const lifetimeCount = await getLifetimeCount();
                   return {
                     ...habitEntry,
                     name: additionalData.name,
-                    times_per_week: additionalData.times_per_week,
+                    lifetime_count: lifetimeCount.find((item) => item.habit_reference === habitEntry.habit_reference)?.count || 0,
                   };
                 })
               );
-              setWeeklyProgressData(updatedProgress);
+              setMonthlyProgressData(updatedProgress);
             } catch (error) {
               console.error(error);
             }
           };
       
-          fetchWeeklyProgress();
+          fetchMonthlyProgress();
+
       }, [modalVisible])
 
   return (
     <Modal visible={modalVisible} transparent={true} animationType="fade">
     <TouchableWithoutFeedback onPress={handleOverlayPress}>
     <View style={styles.overlayContainer}>
-    <Text style={styles.overlayText}>Current Week:</Text>
-      {getCurrentFullWeek().map((date) => (
+    <Text style={styles.overlayText}>Current Month:</Text>
+      {getCurrentMonth().map((date) => (
     <Text style={styles.overlayText} key={date.toString()}>
-      {date.toLocaleDateString(undefined, { weekday: 'short', day: '2-digit' })}
+      {date}
     </Text>
   ))}
         <TouchableWithoutFeedback>
         <View style={styles.overlayContent}>
-        {weeklyProgressData.map((habitEntry) => (
+        {monthlyProgressData.map((habitEntry) => (
         <Text style={styles.overlayText}
               key={habitEntry.habit_reference}>
             {habitEntry.name}
             {habitEntry.count}
-            {habitEntry.times_per_week}
+            {habitEntry.lifetime_count}
           </Text>
       ))}
         </View>
@@ -91,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WeeklyOverlay;
+export default HistoricalOverlay;

@@ -5,6 +5,7 @@ import { db, enableForeignKeys} from './data/database';
 import { clearHabitTable, scheduleDailyTableReset } from './data/queries';
 import HabitOverlay from './components/HabitOverlay';
 import WeeklyOverlay from './components/WeeklyOverrlay';
+import HistoricalOverlay from './components/HistoricalOverlay';
 
 type HabitData = {
   habit_id: number;
@@ -17,6 +18,7 @@ export default function App(): JSX.Element {
   const [habitData, setHabitData] = useState<HabitData[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [weeklyModalVisible, setWeeklyModalVisible] = useState(false);
+  const [historicalModalVisible, setHistoricalModalVisible] = useState(false);
 
   const deleteAll = () => {
     clearHabitTable();
@@ -30,12 +32,20 @@ export default function App(): JSX.Element {
     setWeeklyModalVisible(true);
   };
 
+  const handleHistoricalPress = () => {
+    setHistoricalModalVisible(true);
+  };
+
   const handleModalClose = () => {
     setModalVisible(false);
   };
 
   const handleWeeklyModalClose = () => {
     setWeeklyModalVisible(false);
+  };
+
+  const handleHistoricalModalClose = () => {
+    setHistoricalModalVisible(false);
   };
 
   useEffect(() => {
@@ -77,9 +87,14 @@ export default function App(): JSX.Element {
         modalVisible={weeklyModalVisible}
         handleClose={handleWeeklyModalClose}
       />
+      <HistoricalOverlay
+        modalVisible={historicalModalVisible}
+        handleClose={handleHistoricalModalClose}
+      />
       <View style={styles.buttonContainer}>
       <Button title="Open Overlay" onPress={handleModalPress} />
       <Button title="Open Weekly Overlay" onPress={handleWeeklyPress} />
+      <Button title="Open Historical Overlay" onPress={handleHistoricalPress} />
       <Button title="Delete All Habit" onPress={deleteAll} />
       </View>
       <StatusBar style="auto" />
