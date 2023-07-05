@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { VictoryBar, VictoryChart, VictoryTheme } from 'victory-native';
+import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis } from 'victory-native';
 
 interface HabitEntry {
   habit_reference: number;
@@ -25,7 +25,8 @@ const LifetimeCompletionChart: React.FC<LifetimeCompletionProps> = ({
     
   return (
     <View >
-    <VictoryChart theme={VictoryTheme.grayscale} domainPadding={{ x: 200 }} width={400} >
+    <VictoryChart theme={VictoryTheme.grayscale} domainPadding={{ x: 20 }} width={400} height={200} >
+    <VictoryAxis tickFormat={() => ''} />
       <VictoryBar
         data={data}
         x="name"
@@ -45,6 +46,7 @@ const LifetimeCompletionChart: React.FC<LifetimeCompletionProps> = ({
         }}
       />
     </VictoryChart>
+    <Text style={{ textAlign: 'center', fontSize: 16, marginTop: -30, marginLeft: 50 }}>Habit Completion for the Month</Text>
   </View>
   );
 };

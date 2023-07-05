@@ -20,10 +20,6 @@ export default function App(): JSX.Element {
   const [weeklyModalVisible, setWeeklyModalVisible] = useState(false);
   const [historicalModalVisible, setHistoricalModalVisible] = useState(false);
 
-  const deleteAll = () => {
-    clearHabitTable();
-  };
-
   const handleModalPress = () => {
     setModalVisible(true);
   };
@@ -95,7 +91,6 @@ export default function App(): JSX.Element {
       <Button title="Open Overlay" onPress={handleModalPress} />
       <Button title="Open Weekly Overlay" onPress={handleWeeklyPress} />
       <Button title="Open Historical Overlay" onPress={handleHistoricalPress} />
-      <Button title="Delete All Habit" onPress={deleteAll} />
       </View>
       <StatusBar style="auto" />
     </View>

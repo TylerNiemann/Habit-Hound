@@ -54,35 +54,30 @@ const HistoricalOverlay: React.FC<HistoricalOverlayProps> = ({
     const possibleLifetimeCompletion = 100;
 
   return (
-    <Modal visible={modalVisible} transparent={true} animationType="fade">
-    <TouchableWithoutFeedback onPress={handleOverlayPress}>
+<Modal visible={modalVisible} transparent={true} animationType="fade">
+  <TouchableWithoutFeedback onPress={handleOverlayPress}>
     <View style={styles.overlayContainer}>
-    <Text style={styles.overlayText}>Current Month:</Text>
-      {getCurrentMonth().map((date) => (
-    <Text style={styles.overlayText} key={date.toString()}>
-      {date}
-    </Text>
-  ))}
-        <TouchableWithoutFeedback>
-        <View style={styles.overlayContent}>
-        {monthlyProgressData.map((habitEntry) => (
-        <Text style={styles.overlayText}
-              key={habitEntry.habit_reference}>
-            {habitEntry.name}
-            {habitEntry.count}
-            {habitEntry.lifetime_count}
-          </Text>
-      ))}
+      <View style={styles.overlayContent}>
+        <Text style={styles.overlayText}>Current Month:</Text>
+        <View style={styles.dates}>
+          {getCurrentMonth().map((date) => (
+            <Text style={styles.overlayText} key={date.toString()}>
+              {date}
+            </Text>
+          ))}
         </View>
-        </TouchableWithoutFeedback>
-        <View>
-      <LifetimeCompletionChart
-        lifetimeCompletion={monthlyProgressData}
-      />
+        {monthlyProgressData.map((habitEntry) => (
+          <Text style={styles.overlayText} key={habitEntry.habit_reference}>
+            {habitEntry.name} {habitEntry.count} {habitEntry.lifetime_count}
+          </Text>
+        ))}
+        <View style={styles.chartContainer}>
+          <LifetimeCompletionChart lifetimeCompletion={monthlyProgressData} />
+        </View>
+      </View>
     </View>
-    </View>
-    </TouchableWithoutFeedback>
-  </Modal>
+  </TouchableWithoutFeedback>
+</Modal>
 );
 };
 
@@ -105,6 +100,17 @@ const styles = StyleSheet.create({
   },
   overlayText: {
    gap: 10,
+  },
+  dates: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+  },
+  chartContainer: {
+    flex: 1,
+    marginTop: 20,
+    width: '100%',
+    marginRight: 50,
   },
 });
 

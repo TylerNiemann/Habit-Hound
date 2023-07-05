@@ -2,6 +2,7 @@ import React, { useState }   from 'react';
 import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback, Button } from 'react-native';
 import HabitInput from './HabitInput';
 import MyCheckbox from './Checkbox';
+import DeleteHabit from './DeleteHabit';
 
 type HabitOverlayProps = {
   modalVisible: boolean;
@@ -40,12 +41,14 @@ const HabitOverlay: React.FC<HabitOverlayProps> = ({
       <View style={styles.overlayContainer}>
         <TouchableWithoutFeedback>
               <View style={styles.overlayContent}>
-                <Text style={styles.habit}>TODAY</Text>
+                <Text style={styles.title}>TODAY</Text>
             {habitData.map((habit) => (
               <Text key={habit.habit_id} style={styles.habit}>
                 <MyCheckbox habit_id={habit.habit_id} />
                 <View style={{ paddingRight: 10}} />
                 {habit.name}
+                <View style={{ paddingRight: 10}} />
+                <DeleteHabit habit_id={habit.habit_id} />
               </Text>
             ))}
           </View>
@@ -78,7 +81,8 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 10,
     paddingTop: 30,
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    paddingLeft: 80,
     gap: 20,
   },
   habit:{
@@ -87,6 +91,12 @@ const styles = StyleSheet.create({
   },
   button:{
     marginTop: -35,
+  },
+  title:{
+    marginLeft: 35,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white'
   }
 });
 

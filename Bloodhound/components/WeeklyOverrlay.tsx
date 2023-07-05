@@ -44,26 +44,32 @@ const WeeklyOverlay: React.FC<WeeklyOverlayProps> = ({
   return (
     <Modal visible={modalVisible} transparent={true} animationType="fade">
     <TouchableWithoutFeedback onPress={handleOverlayPress}>
-    <View style={styles.overlayContainer}>
-    <Text style={styles.overlayText}>Current Week:</Text>
-      {getCurrentFullWeek().map((date) => (
-    <Text style={styles.overlayText} key={date.toString()}>
-      {date.toLocaleDateString(undefined, { weekday: 'short', day: '2-digit' })}
-    </Text>
-  ))}
-        <TouchableWithoutFeedback>
+      <View style={styles.overlayContainer}>
         <View style={styles.overlayContent}>
-        {weeklyProgressData.map((habitEntry) => (
-        <Text style={styles.overlayText}
-              key={habitEntry.habit_reference}>
-            {habitEntry.name}
-            {habitEntry.count}
-            {habitEntry.times_per_week}
-          </Text>
-      ))}
+          <Text style={styles.overlayText} >Weekly Progress</Text>
+          <View style={styles.dates}>
+            {getCurrentFullWeek().map((date) => (
+              <View style={styles.dateColumn} key={date.toString()}>
+                <Text style={styles.datesText}>
+                  {date.toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 3)}
+                </Text>
+                <Text style={styles.dateText}>
+                  {date.toLocaleDateString(undefined, { day: '2-digit' })}
+                </Text>
+              </View>
+            ))}
+          </View>
+          {weeklyProgressData.map((habitEntry) => (
+            <Text style={styles.overlayText} key={habitEntry.habit_reference}>
+              {habitEntry.name}
+              <View style={{ paddingRight: 10 }} />
+              {habitEntry.count}
+              <Text style={{ paddingRight: 10 }}> / </Text>
+              {habitEntry.times_per_week}
+            </Text>
+          ))}
         </View>
-        </TouchableWithoutFeedback>
-    </View>
+      </View>
     </TouchableWithoutFeedback>
   </Modal>
 );
@@ -75,19 +81,42 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
+    marginTop: -50,
   },
   overlayContent: {
     width: '80%',
     height: '60%',
-    backgroundColor: 'white',
+    backgroundColor: '#87cefa',
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 10,
-    paddingTop: 30,
     alignItems: 'center',
   },
   overlayText: {
-   gap: 10,
+  marginVertical: 10,
+  fontSize: 20,
+  color: 'darkblue'
+  },
+  dates: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 10,
+    borderWidth: 1,
+    marginTop: 5,
+    padding: 5,
+    borderRadius: 20,
+  },
+  dateColumn: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  dateText: {
+    fontSize: 20,
+  color: 'white'
+  },
+  datesText: {
+    fontSize: 20,
+  color: 'red'
   },
 });
 

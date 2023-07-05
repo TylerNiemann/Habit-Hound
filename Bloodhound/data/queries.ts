@@ -1,17 +1,17 @@
 import { db } from './database';
 import { getCurrentWeek, getCurrentMonth } from '../utils/DateUtils';
-import { differenceInWeeks, parseISO, startOfWeek } from 'date-fns';
 
 
-export function clearHabitTable(): void {
+export function clearHabitTable(habit_id: number): void {
     db.transaction((tx) => {
       tx.executeSql(
         `
-        DELETE FROM Habit;
+        DELETE FROM Habit
+        WHERE habit_id = ? ;
         `,
-        [],
+        [habit_id],
         (_, result) => {
-          console.log('Habit Table cleared');
+          console.log('Habit deleted');
         }
       );
     });

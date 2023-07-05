@@ -35,12 +35,12 @@ type MyCheckboxProps = {
       <Pressable 
         style={[styles.checkboxBase, completed && styles.checkboxChecked]}
         onPress={() => toggleCompleted() }>
-        {completed && <Ionicons name="checkmark" size={24} color="white" />}
+        {completed && <Ionicons name="checkmark" size={20} color="white" />}
       </Pressable>
         ) : (
         <Pressable 
         style={[styles.checkboxBase, completed && styles.checkboxChecked]}>
-        {completed && <Ionicons name="checkmark" size={24} color="white" />}
+        {completed && <Ionicons name="checkmark" size={20} color="white" />}
       </Pressable>
       )}
       </>

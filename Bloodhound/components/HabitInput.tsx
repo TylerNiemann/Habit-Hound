@@ -65,12 +65,13 @@ const HabitInput: React.FC<HabitInputProps> = ({
   const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginLeft: 58,
-        width: 300,
-        maxHeight: 300,
+        marginLeft: 54,
+        width: '75%',
+        maxHeight: '60%',
         borderWidth: 1,
         borderColor: 'white',
-        marginTop: 200,
+        borderRadius: 10,
+        marginTop: 100,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#87cefa',
