@@ -44,28 +44,21 @@ type MyCheckboxProps = {
       </Pressable>
       )}
       </>
-    );   
+    );    
   }
 
 
   const styles = StyleSheet.create({
     checkboxBase: {
       width: 24,
-      height: 24,
-      justifyContent: 'center',
-      alignItems: 'center',
+      height: 20,
       borderRadius: 4,
       borderWidth: 2,
-      borderColor: 'coral',
+      borderColor: 'white',
       backgroundColor: 'transparent',
     },
     checkboxChecked: {
-      backgroundColor: 'coral',
-    },
-        
-    checkboxContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      backgroundColor: 'white',
     },
     checkboxLabel: {
       marginLeft: 8,

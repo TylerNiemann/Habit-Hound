@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { SafeAreaView, StyleSheet, TextInput,  Button, Alert, TouchableWithoutFeedback, Keyboard, Modal} from 'react-native';
 import { createHabitTable } from '../data/database';
 
@@ -13,8 +13,8 @@ const HabitInput: React.FC<HabitInputProps> = ({
   habitModalVisible,
   handleHabitModalClose,
 }) => {
-  const [habitName, setHabitName] = React.useState('');
-  const [timesPerWeek, setTimesPerWeek] = React.useState('');
+  const [habitName, setHabitName] = useState('');
+  const [timesPerWeek, setTimesPerWeek] = useState('');
 
   const handlePress = () => {
     handleHabitModalClose()
@@ -65,16 +65,22 @@ const HabitInput: React.FC<HabitInputProps> = ({
   const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: -200,
+        marginLeft: 58,
         width: 300,
+        maxHeight: 300,
+        borderWidth: 1,
+        borderColor: 'white',
+        marginTop: 200,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#87cefa',
       },
     input: {
       height: 40,
       margin: 12,
       borderWidth: 1,
       padding: 10,
+      backgroundColor: 'gray',
     },
    
   });

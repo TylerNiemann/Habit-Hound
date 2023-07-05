@@ -40,15 +40,19 @@ const HabitOverlay: React.FC<HabitOverlayProps> = ({
       <View style={styles.overlayContainer}>
         <TouchableWithoutFeedback>
               <View style={styles.overlayContent}>
+                <Text style={styles.habit}>TODAY</Text>
             {habitData.map((habit) => (
-              <Text key={habit.habit_id}>
-                {habit.name} {habit.times_per_week}
+              <Text key={habit.habit_id} style={styles.habit}>
                 <MyCheckbox habit_id={habit.habit_id} />
+                <View style={{ paddingRight: 10}} />
+                {habit.name}
               </Text>
             ))}
           </View>
         </TouchableWithoutFeedback>
-        <Button title="Open Overlay" onPress={handleHabitModalPress} />
+        <View style={styles.button}>
+        <Button title="Create New Habit" onPress={handleHabitModalPress} />
+        </View>
         <HabitInput
           habitModalVisible={habitModalVisible}
           handleHabitModalClose={handleHabitModalClose}
@@ -67,15 +71,23 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   overlayContent: {
-    width: '80%',
+    width: '75%',
     height: '60%',
-    backgroundColor: 'white',
+    backgroundColor: '#87cefa',
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 10,
     paddingTop: 30,
     alignItems: 'center',
+    gap: 20,
   },
+  habit:{
+    fontSize: 20,
+    color: 'darkblue'
+  },
+  button:{
+    marginTop: -35,
+  }
 });
 
 export default HabitOverlay;
