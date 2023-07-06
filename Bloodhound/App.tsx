@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Image, Pressable } from 'react-native';
 import { db, enableForeignKeys} from './data/database';
-import { clearHabitTable, scheduleDailyTableReset } from './data/queries';
+import { scheduleDailyTableReset } from './data/queries';
 import HabitOverlay from './components/HabitOverlay';
 import WeeklyOverlay from './components/WeeklyOverrlay';
 import HistoricalOverlay from './components/HistoricalOverlay';
+import { Ionicons } from '@expo/vector-icons';
 
 type HabitData = {
   habit_id: number;
@@ -88,10 +89,23 @@ export default function App(): JSX.Element {
         handleClose={handleHistoricalModalClose}
       />
       <View style={styles.buttonContainer}>
-      <Button title="Open Overlay" onPress={handleModalPress} />
-      <Button title="Open Weekly Overlay" onPress={handleWeeklyPress} />
-      <Button title="Open Historical Overlay" onPress={handleHistoricalPress} />
+      <Pressable 
+        style={[styles.checkboxBase]}
+        onPress={handleModalPress }>
+        {<Ionicons name="list" size={40} color="black" />}
+      </Pressable>
+      <Pressable 
+        style={[styles.checkboxBase]}
+        onPress={handleWeeklyPress }>
+        {<Ionicons name="calendar" size={40} color="black" />}
+      </Pressable>
+      <Pressable 
+        style={[styles.checkboxBase]}
+        onPress={handleHistoricalPress}>
+        {<Ionicons name="bar-chart" size={40} color="black" />}
+      </Pressable>
       </View>
+      <Image source={require('./assets/Dogs/Dog-2.png')} style={styles.image}/> 
       <StatusBar style="auto" />
     </View>
   );
@@ -101,8 +115,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#87cefa',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-end',
+    paddingRight: 50,
+    justifyContent: 'flex-start',
+    paddingTop: 50,
   },
   content: {
     flex: 1,
@@ -110,5 +126,17 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 100,
+    gap: 20,
   },
+  checkboxBase: {
+    width: 40,
+    height: 40,
+    backgroundColor: 'transparent',
+  },
+  image:{
+    marginRight: 110,
+    marginTop: 300,
+    width: 130,
+    height: 130,
+  }
 });

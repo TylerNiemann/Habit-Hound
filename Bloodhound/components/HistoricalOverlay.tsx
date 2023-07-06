@@ -91,10 +91,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
+    marginTop: -150,
   },
   overlayContent: {
     width: '80%',
-    height: '60%',
+    height: '45%',
     backgroundColor: '#87cefa',
     borderWidth: 1,
     borderColor: 'black',
