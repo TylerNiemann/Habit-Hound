@@ -25,7 +25,7 @@ const LifetimeCompletionChart: React.FC<LifetimeCompletionProps> = ({
     
   return (
     <View >
-    <VictoryChart theme={VictoryTheme.grayscale} domainPadding={{ x: 20 }} width={400} height={200} >
+    <VictoryChart theme={VictoryTheme.grayscale} domainPadding={{ x: 20 }} width={300} height={200} >
     <VictoryAxis tickFormat={() => ''} />
       <VictoryBar
         data={data}
@@ -46,7 +46,7 @@ const LifetimeCompletionChart: React.FC<LifetimeCompletionProps> = ({
         }}
       />
     </VictoryChart>
-    <Text style={{ textAlign: 'center', fontSize: 16, marginTop: -30, marginLeft: 50 }}>Habit Completion for the Month</Text>
+    <Text style={{ textAlign: 'center', fontSize: 20, marginTop: -30, marginRight: -20, color: 'darkblue' }}>Habit Completion for the Month</Text>
   </View>
   );
 };

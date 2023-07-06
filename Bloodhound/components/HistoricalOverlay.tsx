@@ -58,7 +58,6 @@ const HistoricalOverlay: React.FC<HistoricalOverlayProps> = ({
   <TouchableWithoutFeedback onPress={handleOverlayPress}>
     <View style={styles.overlayContainer}>
       <View style={styles.overlayContent}>
-        <Text style={styles.overlayText}>Current Month:</Text>
         <View style={styles.dates}>
           {getCurrentMonth().map((date) => (
             <Text style={styles.overlayText} key={date.toString()}>
@@ -66,9 +65,14 @@ const HistoricalOverlay: React.FC<HistoricalOverlayProps> = ({
             </Text>
           ))}
         </View>
+        <Text style={styles.headerText}>      Monthly Completion                Lifetime Completion</Text>
         {monthlyProgressData.map((habitEntry) => (
           <Text style={styles.overlayText} key={habitEntry.habit_reference}>
-            {habitEntry.name} {habitEntry.count} {habitEntry.lifetime_count}
+            {habitEntry.name}
+            <View style={{ paddingRight: 10}} />
+              {habitEntry.count} 
+              <View style={{ paddingRight: 100}} />
+              {habitEntry.lifetime_count}
           </Text>
         ))}
         <View style={styles.chartContainer}>
@@ -91,15 +95,22 @@ const styles = StyleSheet.create({
   overlayContent: {
     width: '80%',
     height: '60%',
-    backgroundColor: 'white',
+    backgroundColor: '#87cefa',
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 10,
     paddingTop: 30,
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    paddingLeft: 20,
+    paddingRight: 50,
+    
   },
   overlayText: {
    gap: 10,
+   color: 'darkblue',
+   fontSize: 18,
+   alignSelf: 'flex-end',
+   paddingLeft: 30,
   },
   dates: {
     flexDirection: 'row',
@@ -110,8 +121,12 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     width: '100%',
-    marginRight: 50,
   },
+  headerText: {
+    gap: 10,
+    color: 'darkblue',
+    fontSize: 10,
+   },
 });
 
 export default HistoricalOverlay;
