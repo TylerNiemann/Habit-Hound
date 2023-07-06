@@ -1,5 +1,5 @@
 import React, { useState }   from 'react';
-import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback, Button } from 'react-native';
+import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback, Button, Image } from 'react-native';
 import HabitInput from './HabitInput';
 import MyCheckbox from './Checkbox';
 import DeleteHabit from './DeleteHabit';
@@ -60,6 +60,7 @@ const HabitOverlay: React.FC<HabitOverlayProps> = ({
           habitModalVisible={habitModalVisible}
           handleHabitModalClose={handleHabitModalClose}
          />
+         <Image source={require('../assets/Dogs/BassetHound-1.png')} style={styles.image}/> 
       </View>
     </TouchableWithoutFeedback>
   </Modal>
@@ -97,7 +98,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white'
-  }
+  },
+  image:{
+    marginTop: -55,
+    marginLeft: 240
+  },
 });
 
 export default HabitOverlay;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View,  Modal, TouchableWithoutFeedback, Image } from 'react-native';
 import { getCountWithinCurrentWeek, getHabit } from '../data/queries';
 import { getCurrentFullWeek } from '../utils/DateUtils';
 
@@ -69,6 +69,7 @@ const WeeklyOverlay: React.FC<WeeklyOverlayProps> = ({
             </Text>
           ))}
         </View>
+        <Image source={require('../assets/Dogs/Corgi-1.png')} style={styles.image}/> 
       </View>
     </TouchableWithoutFeedback>
   </Modal>
@@ -118,6 +119,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   color: 'red'
   },
+  image:{
+    marginTop: -55,
+    marginLeft: 270
+  }
 });
 
 export default WeeklyOverlay;
