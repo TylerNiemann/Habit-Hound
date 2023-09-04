@@ -20,6 +20,37 @@ Store and manage habit data efficiently with Expo SQlite.
 
 Keep users motivated to build and maintain good habits.
 
+## Usage
+Habit Hound is not yet available on any app store, but you can still try it out by following these steps:
+
+Clone the repository to your local machine.
+
+```shell
+git clone https://github.com/TylerNiemann/Habit-Hound.git
+```
+
+Navigate to the project directory.
+
+```shell
+cd Habit-Hound
+```
+
+Install the required dependencies.
+
+```shell
+npm install
+```
+
+Start the app using Expo.
+
+```shell
+npx expo start
+```
+
+This will launch the app in your Expo development environment, allowing you to test it on your local machine.
+
+Stay tuned for future updates, and hopefully, Habit Hound will be available on app stores soon!
+
 ## Screenshots
 
 ![Home Screen](Bloodhound/assets/IMG_2403.PNG)
@@ -45,6 +76,5 @@ Expo SQlite
 Victory-Native
 
 
-## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
