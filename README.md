@@ -23,10 +23,10 @@ Keep users motivated to build and maintain good habits.
 ## Usage
 Habit Hound is not yet available on any app store, but you can still try it out by following these steps:
 
-Clone the repository to your local machine.
+Fork the repository and clone to your local machine.
 
 ```shell
-git clone https://github.com/TylerNiemann/Habit-Hound.git
+git clone https://github.com/example-user/Habit-Hound.git
 ```
 
 Navigate to the project directory.
