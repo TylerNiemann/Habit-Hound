@@ -1,6 +1,6 @@
-#Habit Hound
+# Habit Hound
 
-##Description
+## Description
 
 Habit Hound is a mobile app designed to help users build and maintain good daily habits. With features to track daily, weekly, monthly, and lifetime habit progression, Habit Hound keeps users motivated on their journey to self-improvement. The app utilizes Expo SQlite 
 
@@ -8,7 +8,7 @@ database tables and queries to store and manage habit data efficiently. To provi
 
 Moreover, Habit Hound ensures a seamless cross-platform experience, running smoothly on both iOS and Android devices thanks to React-Native and Expo.
 
-##Features
+## Features
 
 Track daily, weekly, monthly, and lifetime habit progress.
 
@@ -20,7 +20,7 @@ Store and manage habit data efficiently with Expo SQlite.
 
 Keep users motivated to build and maintain good habits.
 
-##Screenshots
+## Screenshots
 
 ![Home Screen](Bloodhound/assets/IMG_2403.PNG)
 
@@ -32,7 +32,7 @@ Keep users motivated to build and maintain good habits.
 
 ![Monthly/Lifetime Progress](Bloodhound/assets/IMG_2409.PNG)
 
-##Technologies Used
+## Technologies Used
 
 TypeScript
 
@@ -44,7 +44,6 @@ Expo SQlite
 
 Victory-Native
 
-Tyler Niemann
 
 ## License
 
